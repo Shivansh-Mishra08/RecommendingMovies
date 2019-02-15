@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+<nav class="navbar is-dark is-fixed-top" role="navigation" arial-label="main navigation">
+	<div class="navbar-brand">
+		<a class="navbar-item" style="font-weight:bold;" href="/Movies">
+			HOME
+		</a>
+
+		<a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+      	<span aria-hidden="true"></span>
+      	<span aria-hidden="true"></span>
+      	<span aria-hidden="true"></span>
+		</a>
+	</div>
+
+	<div class="navbar-menu" id="navMenu">
+	 <div class="navbar-start">
+	 <div class="navbar-item">
+	 <div class="field is-grouped">
+
+	<!-- 	<form action="#" >
+			<div class="field has-addons ">
+				<p class="control ">
+					<input type="text" name="Movie" class="input "  placeholder="Enter the Movie">
+				</p>
+				<p class="control">
+					<button type="submit" class="button is-success">
+						<i class="fa fa-search"></i>
+					</button>
+				</p>
+			</div>
+		</form>
+
+		-->
+
+	 </div>
+	 </div>
+	 </div>
+	<div class="navbar-end" >
+
+		<div class="navbar-item">
+		<div class="field is-grouped">
+   	     <p class="control">
+            <a class="button is-primary" href="/likedMovies" id="likeButton">
+              <span class="icon">
+                <i class="fa fa-thumbs-up"></i>
+              </span>
+              <span>MOVIES YOU LIKED</span>
+            </a>
+          </p>
+
+   	     <p class="control">
+            <a class="button is-danger" href="/">
+              <span class="icon">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+              </span>
+              <span>SIGN OUT</span>
+            </a>
+          </p>
+
+		</div>
+	</div>
+	</div>
+	</div>
+
+
+</nav>
+<br><br>
+<div class="title is-ancestor">
+    <div class="tile">
+        <article class="tile is-child notification " style="background: #89043d">
+            <div class="content">
+                <p class="title is-size-1" style="color: aliceblue">Recommended Movies</p>
+                <p class="subtitle is-size-4" style="color: aliceblue">These are the top 10 movies which you should watch next please click the tab bar to see the recommendations from various methods</p>
+                <div class="content is-size-4">
+                  <!-- Content -->
+                  <!-- Content -->
+
+
+
+                </div>
+            </div>
+    </article>
+    </div>
+</div>
+
+
+    <div class="tabs is-centered">
+      <ul>
+        <li class="tablinks" onclick="openTab(event, 'User-User Collaborative Filtering')"><a>User-User Collaborative Filtering</a></li>
+        <li class="tablinks" onclick="openTab(event, 'Item-Item Collaborative Filtering')"><a>Item-Item Collaborative Filtering </a></li>
+        <li class="tablinks" onclick="openTab(event, 'Matrix Method of Collaborative Filtering')"><a>Matrix Factorization</a></li>
+      </ul>
+    </div>
+
+    <section class="section">
+
+        <div id="User-User Collaborative Filtering" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline" id="star-parents">
+
+            {% for i,j in user.items() %}
+
+                <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                                <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+         {% endfor %}
+
+
+        </div>
+
+    </div>
+        </div>
+
+        <div id="Item-Item Collaborative Filtering" class="tabcontent">
+                <div class="cotainer is-fluid">
+        <div class="columns is-multiline" id="star-parents">
+
+        {% for i,j in item.items() %}
+
+             <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                                <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+         {% endfor %}
+
+
+        </div>
+
+    </div>
+        </div>
+
+        <div id="Matrix Method of Collaborative Filtering" class="tabcontent">
+                <div class="cotainer is-fluid">
+        <div class="columns is-multiline" id="star-parents">
+
+        {% for i,j in matrix.items() %}
+
+             <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                                <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+         {% endfor %}
+
+
+        </div>
+
+    </div>
+        </div>
+    </section>
+
+
+
+
+</body>
+<script>
+    var delete_cookie = function(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
+    delete_cookie("liked")
+    function openTab(event, tabId) {
+        tabcontent = document.getElementsByClassName('tabcontent');
+        for (i = 0; i < tabcontent.length; i++){
+            tabcontent[i].style.display = 'none';
+        }
+        tablinks = document.getElementsByClassName('tablinks');
+        for (i = 0; i < tablinks.length; i++){
+            tablinks[i].className = tablinks[i].className.replace(' is-active', '');
+        }
+        document.getElementById(tabId).style.display = 'block';
+        event.currentTarget.className += ' is-active'
+    }
+</script>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+<nav class="navbar is-dark is-fixed-top" role="navigation" arial-label="main navigation">
+	<div class="navbar-brand">
+		<a class="navbar-item" style="font-weight:bold;" href="/Movies">
+			HOME
+		</a>
+
+		<a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+      	<span aria-hidden="true"></span>
+      	<span aria-hidden="true"></span>
+      	<span aria-hidden="true"></span>
+		</a>
+	</div>
+
+	<div class="navbar-menu" id="navMenu">
+	 <div class="navbar-start">
+	 <div class="navbar-item">
+	 <div class="field is-grouped">
+
+	<!-- 	<form action="#" >
+			<div class="field has-addons ">
+				<p class="control ">
+					<input type="text" name="Movie" class="input "  placeholder="Enter the Movie">
+				</p>
+				<p class="control">
+					<button type="submit" class="button is-success">
+						<i class="fa fa-search"></i>
+					</button>
+				</p>
+			</div>
+		</form>
+
+		-->
+
+	 </div>
+	 </div>
+	 </div>
+	<div class="navbar-end" >
+
+		<div class="navbar-item">
+		<div class="field is-grouped">
+   	     <p class="control">
+            <a class="button is-primary" href="#" id="likeButton">
+              <span class="icon">
+                <i class="fa fa-thumbs-up"></i>
+              </span>
+              <span>MOVIES YOU LIKED</span>
+            </a>
+          </p>
+
+   	     <p class="control">
+            <a class="button is-danger" href="/">
+              <span class="icon">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+              </span>
+              <span>SIGN OUT</span>
+            </a>
+          </p>
+
+		</div>
+	</div>
+	</div>
+	</div>
+
+
+</nav>
+<br>
+<section class="section">
+    <div class="cotainer is-fluid">
+        <div class="columns is-multiline" id="star-parents">
+
+        {% for i,j in images.items() %}
+
+            <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                                <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+         {% endfor %}
+
+
+        </div>
+
+    </div>
+</section>
+
+</body>
+<script>
+        var cook = document.cookie
+    cook = cook.split("=")[1]
+	document.addEventListener('DOMContentLoaded', () => {
+
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+
+});
+</script>
+</html>

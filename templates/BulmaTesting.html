@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<nav class="navbar is-dark is-fixed-top" role="navigation" arial-label="main navigation">
+	<div class="navbar-brand">
+		<a class="navbar-item" style="font-weight:bold;" href="#">
+			HOME
+		</a>
+
+		<a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+      	<span aria-hidden="true"></span>
+      	<span aria-hidden="true"></span>
+      	<span aria-hidden="true"></span>
+		</a>
+	</div>
+
+	<div class="navbar-menu" id="navMenu">
+	 <div class="navbar-start">
+	 <div class="navbar-item">
+	 <div class="field is-grouped">
+	 
+	<!-- 	<form action="#" >
+			<div class="field has-addons ">
+				<p class="control ">
+					<input type="text" name="Movie" class="input "  placeholder="Enter the Movie">
+				</p>
+				<p class="control">
+					<button type="submit" class="button is-success">
+						<i class="fa fa-search"></i>
+					</button>
+				</p>
+			</div>
+		</form>
+
+		-->
+
+	 </div>
+	 </div>
+	 </div>
+	<div class="navbar-end" >
+		
+		<div class="navbar-item">
+		<div class="field is-grouped">
+   	     <p class="control">
+            <a class="button is-primary" href="/likedMovies" id="likeButton">
+              <span class="icon">
+                <i class="fa fa-thumbs-up"></i>
+              </span>
+              <span>MOVIES YOU LIKED</span>
+            </a>
+          </p> 
+
+   	     <p class="control">
+            <a class="button is-danger" href="/signOut">
+              <span class="icon">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+              </span>
+              <span>SIGN OUT</span>
+            </a>
+          </p>
+
+		</div>
+	</div>
+	</div>
+	</div>
+
+
+</nav>
+<br><br>
+<div class="title is-ancestor">
+    <div class="tile">
+        <article class="tile is-child notification " style="background: #89043d">
+            <div class="content">
+                <p class="title is-size-1" style="color: aliceblue">Recommending Movies</p>
+                <p class="subtitle is-size-4" style="color: aliceblue">Select the 10 or more movies that you like, In order to get the recommendation on what to watch next.</p>
+                <div class="content is-size-4">
+                  <!-- Content -->
+                  <!-- Content -->
+
+
+
+
+                </div>
+            </div>
+    </article>
+    </div>
+</div>
+
+    <div class="tabs is-toggle is-centered">
+      <ul>
+        <li class="tablinks" onclick="openTab(event, 'Fantasy')"><a>Fantasy</a></li>
+        <li class="tablinks" onclick="openTab(event, 'Romance')"><a>Romance </a></li>
+        <li class="tablinks" onclick="openTab(event, 'Animation')"><a>Animation</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Mystery')"><a>Mystery</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Horror')"><a>Horror</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Thriller')"><a>Thriller</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Comedy')"><a>Comedy</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Film-Noir')"><a>Film-Noir</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Crime')"><a>Crime</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Western')"><a>Western</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Sci-Fi')"><a>Sci-Fi</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Children')"><a>Children</a></li>
+          <li class="tablinks" onclick="openTab(event, 'War')"><a>War</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Musical')"><a>Musical</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Action')"><a>Action</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Documentary')"><a>Documentary</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Drama')"><a>Drama</a></li>
+          <li class="tablinks" onclick="openTab(event, 'Adventure')"><a>Adventure</a></li>
+
+      </ul>
+    </div>
+
+
+
+
+<section class="section">
+
+
+{% if session.logIn %}
+    <div id="star-parents">
+        <div id = "Fantasy" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Fantasy.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Romance" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Romance.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Animation" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Animation.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Mystery" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline" >
+
+                {% for i,j in Mystery.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Horror" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline" >
+
+                {% for i,j in Horror.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Thriller" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Thriller.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Comedy" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Comedy.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Film-Noir" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Film_Noir.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Crime" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Crime.items() %}
+
+                   <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Western" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Western.items() %}
+
+                   <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Sci-Fi" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Sci_Fi.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Children" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Children.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "War" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in War.items() %}
+
+                   <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Musical" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Musical.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Action" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline" >
+
+                {% for i,j in Action.items() %}
+
+                   <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Documentary" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Documentary.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Drama" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Drama.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id = "Adventure" class="tabcontent">
+                <div class="cotainer is-fluid">
+                <div class="columns is-multiline">
+
+                {% for i,j in Adventure.items() %}
+
+                    <div class="column is-one-quarter",>
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3.5">
+                                 <img src="{{ url_for('static', filename='images/{}'.format(i)) }}">
+                                 </figure>
+                            </div>
+
+                            <section class="section">
+                            <div class="media-content">
+                                <div class="media-left">
+                                    <p class="title">{{ j }}</p>
+                                   <!-- <p class="subtitle is-6"><br><br><br></p> -->
+                                    <p class="subtitle is-6"> {{  synopsis.find_one({"location": i})["duration"] }}</p>
+
+
+                                    <div class="content">
+                                        {{ synopsis.find_one({"location": i})["synopsis"][:100] }}...
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="{{ i }}">
+                               <span class="1">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="2">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="3">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="4">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                                <span class="5">
+                                    <i class="fa fa-star is-size-6" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            </div>
+                            </section>
+
+                        </div>
+
+
+
+                    </div>
+                 {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+</section>
+<br>
+<nav class="navbar is-transparent is-fixed-bottom">
+    	<div class="navbar-end" >
+
+		<div class="navbar-item">
+		<div class="field is-grouped">
+   	     <p class="control">
+            <a class="button is-danger" href="/getmethod" id="ten-less-button">
+
+              <span>Done</span>
+            </a>
+          </p>
+
+		</div>
+	</div>
+	</div>
+	</div>
+
+</nav>
+
+
+
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{
+  url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
+
+<script>
+        var delete_cookie = function(name) {
+        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    };
+    delete_cookie("liked")
+    var cook = document.cookie
+    cook = cook.split("=")[1]
+	document.addEventListener('DOMContentLoaded', () => {
+
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+
+});
+	var dict = {};
+
+    /*
+        $.get("/getpythondata", function(data) {
+            console.log("hi going to print the json \n")
+            var a = $.parseJSON(data)
+            console.log($.parseJSON(data))
+            console.log(typeof a)
+            console.log(typeof dict)
+            console.log(dict)
+        });
+    */
+
+    var data = document.querySelector("#star-parents");
+
+   // var upload = "/getmethod/"+JSON.stringify(dict)
+    // $.get( upload );
+
+    data.addEventListener("click", function (e) {
+        var key = (e.target.parentNode.parentNode.parentNode.id).split(".")[0]
+
+       // dict[key] = 0;
+        var checkStar = (e.target.parentNode.parentNode.className)
+        if(checkStar === "1" || checkStar === "2" || checkStar === "3" || checkStar ==="4" || checkStar === "5") {
+            for (var i = 1; i <= 5; i++) {
+
+                var name = toString(i)
+                const temp = e.target.parentNode.parentNode.parentNode.getElementsByClassName(i)
+
+                //console.log(temp[0])
+                temp[0].children[0].removeAttribute("style");
+                //console.log(str)
+
+
+            }
+        }
+
+        var numberStars = e.target.parentNode.parentNode.className;
+            if(key != "") {
+                dict[key] = numberStars;
+            }
+
+
+
+        for(var i = 1; i <= Number(numberStars); i++){
+
+            var name = toString(i)
+            const temp = e.target.parentNode.parentNode.parentNode.getElementsByClassName(i)
+
+            //console.log(temp[0])
+            temp[0].children[0].style.color = "#FFD700";
+            //console.log(str)
+
+        }
+
+
+        //e.target.style.color = "#FFD700";
+        //console.log(e.target.parentNode.parentNode.parentNode.id)
+        //console.log(e)
+        console.log(dict)
+    });
+
+    var butt = document.querySelector("#ten-less-button");
+    butt.disabled = true;
+
+    butt.addEventListener("click", function (e) {
+
+        if("" in dict) {
+
+            if (Object.keys(dict).length > 10) {
+                butt.disabled = false;
+                //var upload = "/getmethod/"+JSON.stringify(dict)+"/"+cook;
+                liked = "liked="+JSON.stringify(dict)
+                document.cookie = liked
+            }
+        }else{
+            if (Object.keys(dict).length >=10) {
+                butt.disabled = false;
+                //var upload = "/getmethod/"+JSON.stringify(dict)+"/"+cook;
+                liked = "liked="+JSON.stringify(dict)
+                document.cookie = liked
+            }
+        }
+
+
+       if (butt.disabled){
+           alert("select atleast 10 movies")
+       }
+    });
+
+
+        function openTab(event, tabId) {
+        tabcontent = document.getElementsByClassName('tabcontent');
+        for (i = 0; i < tabcontent.length; i++){
+            tabcontent[i].style.display = 'none';
+        }
+        tablinks = document.getElementsByClassName('tablinks');
+        for (i = 0; i < tablinks.length; i++){
+            tablinks[i].className = tablinks[i].className.replace(' is-active', '');
+        }
+        document.getElementById(tabId).style.display = 'block';
+        event.currentTarget.className += ' is-active'
+    }
+
+
+</script>
+</html>
