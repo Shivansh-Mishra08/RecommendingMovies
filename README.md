@@ -7,6 +7,7 @@ When you first visit the webapp you will be welcomed with the login page where y
 You can even see the movies that you have liked previously by pressing the **Movies You Liked** button on the navbar.
 
 ![Page After Login](https://github.com/Shivansh-Mishra08/RecommendingMovies/blob/master/moviePage.png)
+![Page After Liking the Movies](https://github.com/Shivansh-Mishra08/RecommendingMovies/blob/master/likedMovies.png)
 
 ## Approach Followed
 
