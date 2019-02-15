@@ -63,6 +63,8 @@ You can even see the movies that you have liked previously by pressing the **Mov
 8. Flask-PyMongo - for communicating with mongodb
 9. tqdm - for monitoring the time taken by the algorithms.
 
-## Deployment
+## Citations
+ 1. C.C. Aggarwal, Recommender Systems: The Textbook, DOI 10.1007/978-3-319-29659-3 2 - Used this book to understand User-User collaborative filtering.
+ 2. https://www.ethanrosenthal.com/2016/01/09/explicit-matrix-factorization-sgd-als/ - Used this blog to Understand the Matrix Factorization method.
 
-The application is deployed using digital ocean's droplet and is available to use on the ip address [139.59.1.152].
+
