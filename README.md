@@ -10,8 +10,7 @@ You can even see the movies that you have liked previously by pressing the **Mov
 
 ## Approach Followed
 
-1. In general Item-Item collaborative filtering worked better than the User-User collaborative filtering, irrespective of the similarity function used. This is possibly because Item-Item Collaborative filtering is more resistant to user bias than User-User Collaborative filtering. It was also observed that the plain, cosine similarity tends to work better than pearson correlation, for sparse matrices.
-I also tried to use centered cosine but it tends to fail in the case when user gives same rating to all the movies. The value of nearest neighbors was chosen 40 because at that value the mse loss was minimized.
+1. In general Item-Item collaborative filtering worked better than the User-User collaborative filtering, irrespective of the similarity function used. This is possibly because Item-Item Collaborative filtering is more resistant to user bias than User-User Collaborative filtering. It was also observed that the plain, cosine similarity tends to work better than pearson correlation, for sparse matrices. I also tried to use centered cosine but it tends to fail in the case when user gives same rating to all the movies. The value of nearest neighbors was chosen 40 because at that value the mse loss was minimized.
 
 2.Matrix factorization outperforms both User-User and Item-Item collaborative filtering methods.Using appropriate random initialization, a single iteration of stochastic gradient descent was able to give the best results. K=40 was chosen for latent features for the embeddings. When a new user comes, the algorithm is trained for a single iteration, and the user and item embeddings are multiplied to get the predictions.
 
@@ -24,15 +23,15 @@ I also tried to use centered cosine but it tends to fail in the case when user g
 
 * **ScrapeTheSynopsis.ipynb** - This notebook was used to scrape the synopsis as well as the duration of the movie from the IMDb website. This notebook was also used to store these values in MONGODB-DATABASE.
 
-* **scrapingTheUrl.ipynb** - This notebook contains the code to extract the url of the thumbnail images, The code is threaded so that the results come out faster
+* **scrapingTheUrl.ipynb** - This notebook contains the code to extract the url of the thumbnail images, The code is threaded so that the results come out faster.
 
-* **DownloadingImages.ipynb** - This notebook contains the code to download all the thumbnail images from the IMDb website from the links provided by the scrapingTheUrl.ipynb file
+* **DownloadingImages.ipynb** - This notebook contains the code to download all the thumbnail images from the IMDb website from the links provided by the scrapingTheUrl.ipynb file.
 
 ### Web Application
 
 * **dump floder** - Consists of mongodb database dump, with 5 collections in total. Namely - liked, movies, permanentRatings, synopsis, users.
 
-* **Static folder** - Consists of the images folder
+* **Static folder** - Consists of the images folder.
 
 * **Templates folder** - 
 1. BulmaTesting - This is the the html file which shows the movies which users have to Rate.
@@ -41,7 +40,7 @@ I also tried to use centered cosine but it tends to fail in the case when user g
 4. signIn - This is the html file which shows the Sign In page.
 5. signUp - This is the html file which shows the Sign Up page.
 
-* **app.py** - Uses flask framework as the backend for the webapp
+* **app.py** - Uses flask framework as the backend for the webapp.
 
 * **UserUser.py** - This file provides the useruser_predict function to the main app.py module.
 
@@ -66,4 +65,4 @@ I also tried to use centered cosine but it tends to fail in the case when user g
 
 ## Deployment
 
-The application is deployed using digital ocean's droplet and is available to use on the ip address [139.59.1.152]
+The application is deployed using digital ocean's droplet and is available to use on the ip address [139.59.1.152].
