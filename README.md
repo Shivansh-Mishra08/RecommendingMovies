@@ -1,7 +1,7 @@
 # Movie Recommendation Web Application
 
 ## How To Use The Web Application
-can be accessed by [139.59.1.152](http://139.59.1.152)
+can be accessed atf [139.59.1.152](http://139.59.1.152)
 
 When you first visit the webapp you will be welcomed with the login page where you can also select to signup if you do not have an account already. The homepage is next presents you with the movies where you can rate them according to your preference, you can also select the movies according to the genre from the tab bar given below the nav bar in the website ,you need to star the movies between 1-5. The user is required to rate **atleast 10** movies. After pressing the **Done** button the recommendations will be generated according to your rating, these recommendations are generated with the help of 3 different algorithms namely **User-User Collaborative Filtering, Item-Item collaborative filtering, Matrix Factorization**, *(note that this will take some time since the existin database is large so that we can give better predictions)* once the processing is done you can also choose the recommendations from the different algorithms by pressing the tab bar present in the website.
 You can even see the movies that you have liked previously by pressing the **Movies You Liked** button on the navbar.
