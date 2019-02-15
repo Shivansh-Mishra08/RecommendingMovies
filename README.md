@@ -3,7 +3,7 @@
 ## How To Use The Web Application
 can be accessed atf [139.59.1.152](http://139.59.1.152)
 
-When you first visit the webapp you will be welcomed with the login page where you can also select to signup if you do not have an account already. The homepage is next presents you with the movies where you can rate them according to your preference, you can also select the movies according to the genre from the tab bar given below the nav bar in the website ,you need to star the movies between 1-5. The user is required to rate **atleast 10** movies. After pressing the **Done** button the recommendations will be generated according to your rating, these recommendations are generated with the help of 3 different algorithms namely **User-User Collaborative Filtering, Item-Item collaborative filtering, Matrix Factorization**, *(note that this will take some time since the existin database is large so that we can give better predictions)* once the processing is done you can also choose the recommendations from the different algorithms by pressing the tab bar present in the website.
+When you first visit the webapp you will be welcomed with the login page where you can also select to signup if you do not have an account already. The homepage presents you with the movies where you can rate them according to your preference, you can also select the movies according to the genre from the tab bar given below the nav bar in the website ,you need to star the movies between 1-5. The user is required to rate **atleast 10** movies. After pressing the **Done** button the recommendations will be generated according to your rating, these recommendations are generated with the help of 3 different algorithms namely **User-User Collaborative Filtering, Item-Item collaborative filtering, Matrix Factorization**, *(note that this will take some time since the database is large, in order to give better predictions)* once the processing is done you can also choose the recommendations from the different algorithms by pressing the tab bar present in the website.
 You can even see the movies that you have liked previously by pressing the **Movies You Liked** button on the navbar.
 
 ![Page After Login](https://github.com/Shivansh-Mishra08/RecommendingMovies/blob/master/moviePage.png)
@@ -11,9 +11,11 @@ You can even see the movies that you have liked previously by pressing the **Mov
 
 ## Approach Followed
 
-1. In general Item-Item collaborative filtering worked better than the User-User collaborative filtering, irrespective of the similarity function used. This is possibly because Item-Item Collaborative filtering is more resistant to user bias than User-User Collaborative filtering. It was also observed that the plain, cosine similarity tends to work better than pearson correlation, for sparse matrices. I also tried to use centered cosine but it tends to fail in the case when user gives same rating to all the movies. The value of nearest neighbors was chosen 40 because at that value the mse loss was minimized.
+1. In general Item-Item collaborative filtering worked better than the User-User collaborative filtering, irrespective of the similarity function used. This is possibly because Item-Item Collaborative filtering is more resistant to user bias than User-User Collaborative filtering. It was also observed that the plain cosine similarity tends to work better than pearson correlation, for sparse matrices. I also tried to use centered cosine but it tends to fail in the case when user gives same rating to all the movies. The value of nearest neighbors was chosen 40 because at that value the mse loss was minimized.
 
 2.Matrix factorization outperforms both User-User and Item-Item collaborative filtering methods.Using appropriate random initialization, a single iteration of stochastic gradient descent was able to give the best results. K=40 was chosen for latent features for the embeddings. When a new user comes, the algorithm is trained for a single iteration, and the user and item embeddings are multiplied to get the predictions.
+
+3. I decided to ask user to give 10 movies because MSE was coming out quite less when in testing set I provided only 10 movies per user.
 
 ## Codebbase and Directory Structure
 
@@ -54,14 +56,14 @@ You can even see the movies that you have liked previously by pressing the **Mov
 * **moviesWithIndex.csv** - This consists of movies with indexes assigned to it.
 
 ## Dependencies Used
-1. Flask - for backend
-2. Jinja2 - for HTML templating
-3. passlib - for hashing user password
-4. numpy - for fast numerical computation
-5. Sklearn - for loss metrics
-6. Pandas - for manipulation of CSV'S
-7. Pymongo - for communicating with mongodb
-8. Flask-PyMongo - for communicating with mongodb
+1. Flask - for backend.
+2. Jinja2 - for HTML templating.
+3. passlib - for hashing user password.
+4. numpy - for fast numerical computation.
+5. Sklearn - for loss metrics.
+6. Pandas - for manipulation of CSV'S.
+7. Pymongo - for communicating with mongodb.
+8. Flask-PyMongo - for communicating with mongodb.
 9. tqdm - for monitoring the time taken by the algorithms.
 
 ## Citations
